@@ -11,25 +11,25 @@ const ClientsLogos = () => {
   const logos: string[] = [
     IP,
     oclock,
+    bpi,
+    theodo,
     podo,
     cartoonely,
     quin,
-    bpi,
-    theodo,
     waschool,
   ];
 
   const ClientLogoComponent = ({ url }: { url: string }) => {
     return (
-      <div className="mx-auto px-3 transition duration-200 ease-in-out hover:grayscale-0 md:grayscale">
+      <div className="mx-auto px-3 transition duration-200 ease-in-out hover:grayscale-0 md:grayscale flex-1">
         <img src={url} className="mx-auto" />
       </div>
     );
   };
   return (
     //Todo: replace by flex
-    <div className="grid grid-cols-2 gap-5 border border-y-2 py-5 md:grid-cols-6 md:justify-items-center md:py-16">
-      {logos.map((logo, id) => (
+    <div className="flex items-center border border-y-2 py-5 w-full  md:py-10">
+      {logos.splice(0,4).map((logo, id) => (
         <ClientLogoComponent key={id} url={logo} />
       ))}
     </div>
