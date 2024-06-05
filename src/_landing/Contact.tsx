@@ -1,6 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { Resend } from "resend";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -15,6 +16,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import Cal, { getCalApi } from "@calcom/embed-react";
 import { useEffect } from "react";
+import ContactEmail from "../../emails/Contact";
 
 const Contact = () => {
   const MAX_FILE_SIZE = 10000000;
@@ -28,6 +30,9 @@ const Contact = () => {
     "application/pdf",
     "application/vnd.ms-powerpoint",
   ];
+
+const resend = new Resend(import.meta.env.VITE_RESEND_API_KEY);
+
   const formSchema = z.object({
     firstName: z.string().min(1, {
       message: "Vous devez renseigner votre prénom",
@@ -68,12 +73,46 @@ const Contact = () => {
   });
   const fileRef = form.register("files");
 
-  // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values);
-  }
+const convertFileToBase64 = (file: Blob) => {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+};
+
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+     if (values.files && values.files[0]) {
+       try {
+         const base64File = await convertFileToBase64(values.files[0]);
+         values.files = base64File;
+
+         await resend.emails.send({
+           from: "Acme <onboarding@resend.dev>",
+           to: ["tgil849@gmail.com"],
+           subject: "Hello world",
+           react: ContactEmail({ firstName: "John",lastName:"blabla" }),
+         });
+       } catch (error) {
+         console.log("Error converting file to base64", error);
+         return;
+       }
+     }
+
+    
+    /* try {
+      await emailjs.send(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+
+        values,
+        { publicKey: "user_4OCMAoXXWlSfnD7fgLVEP" },
+      );
+    } catch (error) {
+      console.log(error);
+    } */
+  };
 
   useEffect(() => {
     (async function () {
@@ -89,7 +128,7 @@ const Contact = () => {
   const formComponent = () => {
     return (
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)}>
+        <form id="contactForm" onSubmit={form.handleSubmit(onSubmit)}>
           <div className="mb-10 flex flex-col flex-wrap justify-between gap-10 md:flex-row">
             <FormField
               control={form.control}
@@ -241,21 +280,21 @@ const Contact = () => {
   };
 
   return (
-    <div className="flex w-full flex-col bg-primary md:flex-row md:divide-x-2">
-      <div className="mx-auto w-11/12 text-center md:w-7/12 md:px-14 md:py-16">
+    <div className="flex w-full flex-col bg-primary md:flex-row">
+      <div className="mx-auto w-11/12 text-center pt-10 md:pt-0 md:w-7/12 md:px-14 md:mb-16">
         <h2 className="text-6xl font-bold text-secondary">Demandez un devis</h2>
-        <div className="border-2 border-secondary p-4 md:mt-24 md:p-14">
+        <div className="p-4 md:p-14">
           {formComponent()}
         </div>
       </div>
-      <div className="mx-auto w-11/12 text-center md:w-5/12 md:px-14 md:py-16">
+      <div className="mx-auto mb-16 w-11/12 text-center md:w-5/12 md:px-14 md:mb-16">
         <h2 className="mt-20 text-6xl font-bold text-secondary md:mt-0">
           Réserver un RDV
         </h2>
-        <div className="mt-14 md:mt-24">
+        <div className="mt-14 ">
           <Cal
             calLink="thomas-gil/entretien"
-            style={{ width: "100%", height: "100%", overflow: "hidden" }}
+            style={{ width: "100%", height: "100%", overflow: "scroll" }}
             config={{ layout: "month_view" }}
           />
         </div>
