@@ -1,6 +1,6 @@
 import { Button, Html } from "@react-email/components";
 
-export default function ContactEmail(props:{firstName:string,lastName:string}) {
+export default function ContactEmail(props:{firstName:string,lastName:string,files:string}) {
   return (
     <Html>
       <Button

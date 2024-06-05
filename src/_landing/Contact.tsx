@@ -73,26 +73,29 @@ const resend = new Resend(import.meta.env.VITE_RESEND_API_KEY);
   });
   const fileRef = form.register("files");
 
-const convertFileToBase64 = (file: Blob) => {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = () => resolve(reader.result);
-    reader.onerror = reject;
-    reader.readAsDataURL(file);
-  });
+const convertFileToBase64 = (file: Blob): Promise<string | ArrayBuffer | null> => {
+  return new Promise(
+    (resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    },
+  );
 };
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
      if (values.files && values.files[0]) {
        try {
-         const base64File = await convertFileToBase64(values.files[0]);
-         values.files = base64File;
+        let base64File: string | ArrayBuffer | null = null;
+          base64File = await convertFileToBase64(values.files[0]);
+        
 
          await resend.emails.send({
-           from: "Acme <onboarding@resend.dev>",
+           from: "thomas-gil.fr",
            to: ["tgil849@gmail.com"],
            subject: "Hello world",
-           react: ContactEmail({ firstName: "John",lastName:"blabla" }),
+           react: ContactEmail({ firstName: "John",lastName:"blabla",files:base64File as string }),
          });
        } catch (error) {
          console.log("Error converting file to base64", error);
