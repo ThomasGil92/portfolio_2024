@@ -281,7 +281,7 @@ const Contact = () => {
         <div className="p-4 md:p-14">{formComponent()}</div>
       </div> */}
       <div className="mx-auto mb-16 w-11/12 text-center md:mb-16 md:w-8/12 md:px-14">
-        <h2 className="mt-20 text-6xl font-bold text-secondary md:mt-0">
+        <h2 className="mt-20 text-6xl font-bold text-secondary ">
           Réserver un RDV
         </h2>
         <div className="mt-14">

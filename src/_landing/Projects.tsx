@@ -1,7 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import enterapie from "@/assets/capture/enterapie-home.webp";
 import oclock from "@/assets/capture/oclock.png";
-import { BorderBeam } from "@/components/magicui/border-beam";
+//import { BorderBeam } from "@/components/magicui/border-beam";
 
 const Projects = () => {
   const CircleImage = ({ src }: { src: string }) => {
@@ -9,10 +9,10 @@ const Projects = () => {
     return (
       <>
         <div
-          className={`p-2 relative mx-auto h-72 w-72 border-spacing-2 rounded-full border bg-cover bg-center bg-no-repeat object-contain`}
+          className={`p-2 relative h-72 w-72 border-spacing-2 rounded-full border bg-cover bg-center bg-no-repeat object-contain drop-shadow-2xl`}
           style={{ backgroundImage: `url(${src})` }}
         >
-          <BorderBeam borderWidth={4} duration={5}/>
+         {/*  <BorderBeam borderWidth={4} duration={5}/> */}
         </div>
       </>
     );
@@ -24,8 +24,8 @@ const Projects = () => {
     img: string;
   }) => {
     return (
-      <div className="mb-5 flex flex-col gap-5 md:flex-row">
-        <Card>
+      <div className="mb-5 md:mb-20 flex flex-col md:justify-between gap-5 md:flex-row">
+        <Card className="md:w-7/12 drop-shadow-2xl">
           <CardHeader>
             <CardTitle>{props.title}</CardTitle>
           </CardHeader>

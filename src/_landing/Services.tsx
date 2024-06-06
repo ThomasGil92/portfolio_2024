@@ -121,9 +121,9 @@ const Services = () => {
     };
   }) => {
     return (
-      <div className="md:w-3/12 mx-auto w-11/12">
+      <div className="mx-auto w-11/12 md:mb-20 md:w-3/12">
         <div
-          className={`mx-auto flex h-44 w-44 items-center justify-center rounded-lg p-5 ${item.bg_className}`}
+          className={`mx-auto flex h-44 w-44 items-center justify-center rounded-lg p-5 ${item.bg_className} drop-shadow-2xl`}
         >
           <img src={item.icon} />
         </div>
@@ -154,7 +154,7 @@ const Services = () => {
           <IconCloud iconSlugs={slugs} />
         </div> */}
       </div>
-      <div className="flex flex-col gap-24 md:gap-0 md:flex-row md:flex-wrap md:justify-between">
+      <div className="flex flex-col gap-24 md:flex-row md:flex-wrap md:justify-between md:gap-0">
         {domains.map((item, id) => {
           return <SkillCard key={id + item.title} item={item} />;
         })}

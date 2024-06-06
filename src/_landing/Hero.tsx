@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 const Hero = () => {
   return (
     <div className="w-11/12 divide-y-4 py-5 text-center mx-auto md:w-8/12">
-      <img src={avatar} className="mx-auto h-52 w-52" />
+      <img src={avatar} className="mx-auto h-52 w-52 md:w-96 md:h-96" />
       <div>
         <h1 className="text-5xl font-semibold leading-normal">
           Développeur Front-end
