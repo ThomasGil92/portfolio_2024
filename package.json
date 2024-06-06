@@ -8,7 +8,8 @@
     "build": "tsc && vite build",
     "lint": "npx prettier . --write && eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "email": "email dev"
+    "email": "email dev",
+    "vdev": "vercel dev"
   },
   "dependencies": {
     "@calcom/embed-react": "^1.5.0",
@@ -22,6 +23,8 @@
     "@radix-ui/react-toast": "^1.1.5",
     "@react-email/components": "0.0.19",
     "@react-email/tailwind": "0.0.18",
+    "@vercel/node": "^3.1.6",
+    "axios": "^1.7.2",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "embla-carousel-react": "^8.1.3",

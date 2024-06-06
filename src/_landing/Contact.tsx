@@ -1,7 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { Resend } from "resend";
+import axios from 'axios'
 
 import { Button } from "@/components/ui/button";
 import {
@@ -16,7 +16,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import Cal, { getCalApi } from "@calcom/embed-react";
 import { useEffect } from "react";
-import ContactEmail from "../../emails/Contact";
+//import ContactEmail from "../../emails/Contact";
 
 const Contact = () => {
   const MAX_FILE_SIZE = 10000000;
@@ -30,8 +30,6 @@ const Contact = () => {
     "application/pdf",
     "application/vnd.ms-powerpoint",
   ];
-
-const resend = new Resend(import.meta.env.RESEND_API_KEY);
 
   const formSchema = z.object({
     firstName: z.string().min(1, {
@@ -73,37 +71,30 @@ const resend = new Resend(import.meta.env.RESEND_API_KEY);
   });
   const fileRef = form.register("files");
 
-const convertFileToBase64 = (file: Blob): Promise<string | ArrayBuffer | null> => {
-  return new Promise(
-    (resolve, reject) => {
+  const convertFileToBase64 = (
+    file: Blob,
+  ): Promise<string | ArrayBuffer | null> => {
+    return new Promise((resolve, reject) => {
       const reader = new FileReader();
       reader.onload = () => resolve(reader.result);
       reader.onerror = reject;
       reader.readAsDataURL(file);
-    },
-  );
-};
+    });
+  };
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-     if (values.files && values.files[0]) {
-       try {
+    if (values.files && values.files[0]) {
+      try {
         let base64File: string | ArrayBuffer | null = null;
-          base64File = await convertFileToBase64(values.files[0]);
-        
+        base64File = await convertFileToBase64(values.files[0]);
 
-         await resend.emails.send({
-           from: "thomas-gil.fr",
-           to: ["tgil849@gmail.com"],
-           subject: "Hello world",
-           react: ContactEmail({ firstName: "John",lastName:"blabla",files:base64File as string }),
-         });
-       } catch (error) {
-         console.log("Error converting file to base64", error);
-         return;
-       }
-     }
+        await axios.post("/api/getData",{body:JSON.stringify({values,base64File})});
+      } catch (error) {
+        console.log("Error converting file to base64", error);
+        return;
+      }
+    }
 
-    
     /* try {
       await emailjs.send(
         import.meta.env.VITE_EMAILJS_SERVICE_ID,
@@ -284,17 +275,15 @@ const convertFileToBase64 = (file: Blob): Promise<string | ArrayBuffer | null> =
 
   return (
     <div className="flex w-full flex-col bg-primary md:flex-row">
-      <div className="mx-auto w-11/12 text-center pt-10 md:pt-0 md:w-7/12 md:px-14 md:mb-16">
+      <div className="mx-auto w-11/12 pt-10 text-center md:mb-16 md:w-7/12 md:px-14 md:pt-0">
         <h2 className="text-6xl font-bold text-secondary">Demandez un devis</h2>
-        <div className="p-4 md:p-14">
-          {formComponent()}
-        </div>
+        <div className="p-4 md:p-14">{formComponent()}</div>
       </div>
-      <div className="mx-auto mb-16 w-11/12 text-center md:w-5/12 md:px-14 md:mb-16">
+      <div className="mx-auto mb-16 w-11/12 text-center md:mb-16 md:w-5/12 md:px-14">
         <h2 className="mt-20 text-6xl font-bold text-secondary md:mt-0">
           Réserver un RDV
         </h2>
-        <div className="mt-14 ">
+        <div className="mt-14">
           <Cal
             calLink="thomas-gil/entretien"
             style={{ width: "100%", height: "100%", overflow: "scroll" }}
