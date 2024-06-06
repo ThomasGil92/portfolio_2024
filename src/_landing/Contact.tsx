@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -275,11 +276,11 @@ const Contact = () => {
 
   return (
     <div className="flex w-full flex-col bg-primary md:flex-row">
-      <div className="mx-auto w-11/12 pt-10 text-center md:mb-16 md:w-7/12 md:px-14 md:pt-0">
+      {/* <div className="mx-auto w-11/12 pt-10 text-center md:mb-16 md:w-7/12 md:px-14 md:pt-0">
         <h2 className="text-6xl font-bold text-secondary">Demandez un devis</h2>
         <div className="p-4 md:p-14">{formComponent()}</div>
-      </div>
-      <div className="mx-auto mb-16 w-11/12 text-center md:mb-16 md:w-5/12 md:px-14">
+      </div> */}
+      <div className="mx-auto mb-16 w-11/12 text-center pt-16 md:mb-16 md:w-5/12 md:px-14">
         <h2 className="mt-20 text-6xl font-bold text-secondary md:mt-0">
           Réserver un RDV
         </h2>
