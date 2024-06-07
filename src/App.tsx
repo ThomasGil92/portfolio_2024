@@ -10,7 +10,7 @@ import { cn } from "./lib/utils";
 
 function App() {
   return (
-    <main className={cn("h-full w-full")}>
+    <main className={cn("h-full w-full scroll-smooth overflow-x-hidden")}>
       <NavBar />
       <Hero />
       <ClientsLogos />

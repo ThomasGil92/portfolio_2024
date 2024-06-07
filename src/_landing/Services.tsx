@@ -1,4 +1,3 @@
-//import IconCloud from "@/components/magicui/icon-cloud";
 import tsIcon from "@/assets/icons/tsicon.svg";
 import reactIcon from "@/assets/icons/react.svg";
 import nestIcon from "@/assets/icons/nest.svg";
@@ -8,37 +7,15 @@ import tailwindIcon from "@/assets/icons/tailwind.svg";
 //import bootstrapIcon from "@/assets/icons/bootstrap.svg";
 import jiraIcon from "@/assets/icons/jira.svg";
 import { Button } from "@/components/ui/button";
+import { useRef } from "react";
+import { motion, useInView } from "framer-motion";
 
 const Services = () => {
-  /* const slugs = [
-    "typescript",
-    "javascript",
-    "react",
-    "html5",
-    "css3",
-    "nodedotjs",
-    "express",
-    "nextdotjs",
-    "prisma",
-    "amazonaws",
-    "postgresql",
-    "firebase",
-    "eslint",
-    "vercel",
-    "testinglibrary",
-    "jest",
-    "cypress",
-    "docker",
-    "git",
-    "jira",
-    "github",
-    "gitlab",
-    "visualstudiocode",
-    "prisma",
-    "redux",
-    "figma",
-    "svelte",
-  ]; */
+  const comeFromBottom = {
+    hidden: { opacity: 0, y: 50 },
+    visible: { opacity: 1, y: 0 },
+  };
+
   const domains: {
     title: string;
     content: string;
@@ -111,8 +88,9 @@ const Services = () => {
   ];
 
   const SkillCard = ({
-    item,
+    item,id
   }: {
+    id: number;
     item: {
       title: string;
       content: string;
@@ -120,8 +98,20 @@ const Services = () => {
       bg_className: string;
     };
   }) => {
+    const ref = useRef(null);
+    const isInView = useInView(ref, {
+      once: true,
+      margin: "-25% 0px -25% 0px",
+    });
     return (
-      <div className="mx-auto w-11/12 md:mb-20 md:w-3/12">
+      <motion.div
+        ref={ref}
+        initial="hidden"
+        animate={isInView ? "visible" : "hidden"}
+        variants={comeFromBottom}
+        transition={{ duration:`0.${id}` }}
+        className="mx-auto w-11/12 md:mb-20 md:w-3/12"
+      >
         <div
           className={`mx-auto flex h-44 w-44 items-center justify-center rounded-lg p-5 ${item.bg_className} drop-shadow-2xl`}
         >
@@ -133,7 +123,7 @@ const Services = () => {
             {item.content}
           </p>
         </div>
-      </div>
+      </motion.div>
     );
   };
 
@@ -147,21 +137,21 @@ const Services = () => {
   };
 
   return (
-    <div className="mx-auto w-11/12 py-20 md:w-8/12">
-      <div className="relative mb-9 text-center leading-relaxed">
-        <h1 className="text-4xl font-bold">Services</h1>
+    <div className="mx-auto w-11/12 py-20 md:w-8/12" id="services">
+      <div className="relative mb-9 text-center leading-relaxed md:mb-20">
+        <h1 className="text-6xl font-bold">Services</h1>
         {/* <div className="mx-auto px-10 md:w-1/2">
           <IconCloud iconSlugs={slugs} />
         </div> */}
       </div>
       <div className="flex flex-col gap-24 md:flex-row md:flex-wrap md:justify-between md:gap-0">
         {domains.map((item, id) => {
-          return <SkillCard key={id + item.title} item={item} />;
+          return <SkillCard key={id} item={item} id={id} />;
         })}
       </div>
       <div className="mt-20 flex flex-col gap-10 md:flex-row md:justify-between">
         {products.map((item, id) => {
-          return <Product key={id} item={item} />;
+          return <Product key={id + item.title} item={item} />;
         })}
       </div>
       <div className="mt-20 text-center">
