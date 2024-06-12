@@ -18,7 +18,7 @@ const Hero = () => {
         transition={{ duration: 0.5 }}
       >
         <h1
-          className="text-6xl font-semibold leading-normal"
+          className="text-5xl md:text-6xl font-semibold leading-normal"
 
           /* style={{
             transform: isInView ? "none" : "translateY(200px)",

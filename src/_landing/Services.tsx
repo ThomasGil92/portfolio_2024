@@ -56,7 +56,7 @@ const Services = () => {
     },
     {
       title: "UI: TailwindCSS / Shadcn, Bootstrap",
-      content: "Des composants rapides à mettre en place pour un effet waouw!",
+      content: "Des composants rapides à mettre en place pour un effet wow!",
       icon: tailwindIcon,
       bg_className: "bg-indigo-300",
     },

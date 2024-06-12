@@ -32,7 +32,7 @@ const Projects = () => {
     return (
       <>
         <div
-          className={`relative h-72 w-72 border-spacing-2 rounded-full border bg-cover bg-center bg-no-repeat object-contain p-2 drop-shadow-2xl`}
+          className={`relative mx-auto h-72 w-72 border-spacing-2 rounded-full border bg-cover bg-center bg-no-repeat object-contain p-2 drop-shadow-2xl md:mx-0`}
           style={{ backgroundImage: `url(${src})` }}
         >
           {/*  <BorderBeam borderWidth={4} duration={5}/> */}
@@ -47,7 +47,7 @@ const Projects = () => {
     img: string;
   }) => {
     return (
-      <div className="mb-5 flex flex-col gap-5 md:mb-20 md:flex-row md:justify-between">
+      <div className="mb-16 flex flex-col gap-5 md:mb-20 md:flex-row md:justify-between">
         <Card className="drop-shadow-2xl md:w-7/12">
           <CardHeader>
             <CardTitle>{props.title}</CardTitle>
