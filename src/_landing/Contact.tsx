@@ -276,7 +276,7 @@ import { useEffect } from "react";
   // };
 
   return (
-    <div className="flex w-full flex-col bg-primary md:flex-row">
+    <div id="contact" className="flex w-full flex-col bg-primary md:flex-row">
       {/* <div className="mx-auto w-11/12 pt-10 text-center md:mb-16 md:w-7/12 md:px-14 md:pt-0">
         <h2 className="text-6xl font-bold text-secondary">Demandez un devis</h2>
         <div className="p-4 md:p-14">{formComponent()}</div>

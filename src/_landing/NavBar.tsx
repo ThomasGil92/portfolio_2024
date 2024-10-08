@@ -17,7 +17,7 @@ const NavBar = () => {
           <NavigationMenuItem>
             <NavigationMenuLink
               href="#about"
-              className={navigationMenuTriggerStyle()}
+              className={`${navigationMenuTriggerStyle()} hover:text-white`}
             >
               À propos
             </NavigationMenuLink>
@@ -25,7 +25,7 @@ const NavBar = () => {
           <NavigationMenuItem>
             <NavigationMenuLink
               href="#projects"
-              className={navigationMenuTriggerStyle()}
+              className={`${navigationMenuTriggerStyle()} hover:text-white`}
             >
               Projets
             </NavigationMenuLink>
@@ -33,14 +33,14 @@ const NavBar = () => {
           <NavigationMenuItem>
             <NavigationMenuLink
               href="#services"
-              className={navigationMenuTriggerStyle()}
+              className={`${navigationMenuTriggerStyle()} hover:text-white`}
             >
               Services
             </NavigationMenuLink>
           </NavigationMenuItem>
         </NavigationMenuList>
         <Button asChild>
-          <NavigationMenuLink>Me contacter</NavigationMenuLink>
+          <NavigationMenuLink href="#contact">Me contacter</NavigationMenuLink>
         </Button>
       </div>
     </NavigationMenu>
