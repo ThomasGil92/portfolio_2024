@@ -29,7 +29,7 @@ const Hero = () => {
           Développeur <span className="text-blue-gradient">Front-end</span>
         </h1>
 
-        <p className="text-lg">
+        <p className="text-lg mt-5">
           Création de sites internet, renforcement d'équipe, formations au
           développement web. Je vous propose des solutions sur-mesure{" "}
         </p>
